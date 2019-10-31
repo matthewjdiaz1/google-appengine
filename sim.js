@@ -10,7 +10,7 @@ const simulate = (tasksCount, max) => {
       let num = Math.ceil(Math.random() * (max - 1));   // 1 - 49
 
       // increment numbersGenerated
-      // results.numbersGenerated++;
+      // results.numbersGenerated++; // hardcoded to line 3 for performance
 
       // if number has already occured, increment it
       if (results[num]) {
