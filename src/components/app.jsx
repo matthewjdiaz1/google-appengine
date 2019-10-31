@@ -12,14 +12,16 @@ class App extends React.Component {
       labels: null,
       data: null,
       mostFrequentNum: null,
+      allNumFrequency: null,
     };
     this.runSim = this.runSim.bind(this);
   }
 
-  /*____________________________TODO____________________________    
-    add user authentication
+  /*____________________________TODO____________________________
+    - add user authentication
+    - refactor sim script again to minimize latency
 
-    refactor sim script again to minimize latency
+    AppEngine project name - Altirnao-AppEngine-Exercise
     _____________________________________________________________*/
 
   componentDidMount() {
@@ -41,11 +43,17 @@ class App extends React.Component {
 
     let mostFrequentNum = [data.indexOf(Math.max(...data)) + 1, Math.max(...data)];
 
+    let allNumFrequency = [];
+    data.forEach(num => {
+      allNumFrequency.push((num / results.numbersGenerated) * 100);
+    });
+
     this.setState({
       results,
       labels,
       data,
       mostFrequentNum,
+      allNumFrequency,
     });
   }
 
@@ -67,14 +75,30 @@ class App extends React.Component {
               data={{
                 labels: this.state.labels,
                 datasets: [{
-                  label: 'Simulation Results',
+                  label: 'Occurrence of Each Number',
                   data: this.state.data,
                   borderWidth: 1
-                }]
+                }],
               }}
-              // height={150}
               options={{ maintainAspectRatio: false }}
+              height={200}
             />
+          </div>
+          <div id="charts">
+            <div>
+              <Line
+                data={{
+                  labels: this.state.labels,
+                  datasets: [{
+                    label: 'Chance of Each Number',
+                    data: this.state.allNumFrequency,
+                    borderWidth: 1
+                  }],
+                }}
+                options={{ maintainAspectRatio: false }}
+                height={200}
+              />
+            </div>
             <h4>{this.state.results.numbersGenerated} numbers were generated in {this.state.results.runtime.toFixed(1)}ms.</h4>
             <h4>The most frequently occuring number was {this.state.mostFrequentNum[0]} at {this.state.mostFrequentNum[1]} occurrences.</h4>
           </div>
