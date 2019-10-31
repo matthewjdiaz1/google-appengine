@@ -1,0 +1,12 @@
+
+body {
+  background: #eee;
+}
+button {
+  margin-left: 10px;
+  padding: 10px;
+  background: grey;
+  color: white;
+  border: none;
+  width: 150px;
+}
